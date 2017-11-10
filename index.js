@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser);
 app.use(cors())
 app.use(session({
-  secret: 'my-secr3t',
+  secret: 'process.env.SESSION_SECRET',
   resave: false,
   saveUninitialized: true
 }));
