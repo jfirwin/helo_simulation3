@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(bodyParser);
+app.use(bodyParser.json());
 app.use(cors())
 app.use(session({
   secret: 'process.env.SESSION_SECRET',
@@ -22,7 +22,12 @@ massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db);
 })
 
-var strategy = new Auth0Strategy({
+app.use(express.static(__dirname + '/helo_simulation3_frontend/build/'));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new Auth0Strategy({
   domain: process.env.AUTH_DOMAIN,
   clientID: process.env.AUTH_CLIENT_ID,
   clientSecret: process.env.AUTH_CLIENT_SECRET,
@@ -42,15 +47,24 @@ var strategy = new Auth0Strategy({
           })
       }
   });
+}));
 
-  passport.use(strategy);
+app.get('/auth', passport.authenticate('auth0'));
+app.get('/auth/callback', passport.authenticate('auth0', {
+  successRedirect: 'http://localhost:3001/profile',
+  failureRedirect: 'http://localhost:3001/'
+}));
 
-  app.get('/auth', passport.authenticate('auth0'));
-  app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3001/profile',
-    failureRedirect: 'http://localhost:3001/'
-  }));
-})
+passport.serializeUser(function(user, done){
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done){
+  app.get('db').get_user([user.auth_id])
+    .then( user => {
+      return done(null, user[0]);
+    });
+});
 
 const port = 3001;
 
