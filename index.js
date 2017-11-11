@@ -43,19 +43,14 @@ var strategy = new Auth0Strategy({
       }
   });
 
-passport.use(strategy);
+  passport.use(strategy);
 
-app.get('/auth', passport.authenticate('auth0'));
-app.get('/auth/callback', passport.authenticate('auth0', {
-  successRedirect: 'http://localhost:3001/profile',
-  failureRedirect: 'http://localhost:3001/'
-}));
-
-
-
-
-
-  })
+  app.get('/auth', passport.authenticate('auth0'));
+  app.get('/auth/callback', passport.authenticate('auth0', {
+    successRedirect: 'http://localhost:3001/profile',
+    failureRedirect: 'http://localhost:3001/'
+  }));
+})
 
 const port = 3001;
 
