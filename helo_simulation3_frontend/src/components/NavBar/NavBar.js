@@ -9,9 +9,9 @@ class NavBar extends Component {
     return(
       <div className="nav-background">
         <div className="nav-navigation">
-          <h2>
-            Helo
-          </h2>
+        <Link to="/">
+          <h2>Helo</h2>
+        </Link>
           <Link to="/">
             <img src={home} alt="home"/>
           </Link>
