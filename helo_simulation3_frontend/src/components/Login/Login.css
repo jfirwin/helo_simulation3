@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  color: white;
 }
 .login-box {
   background-image: linear-gradient(128deg, rgba(64,61,57, 0.1), rgba(255,255,255, 0.2));
@@ -16,6 +17,10 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+.login-box h1 {
+  -webkit-margin-before: 0px;
+  -webkit-margin-after: 0px;
 }
 .login-logo {
 
