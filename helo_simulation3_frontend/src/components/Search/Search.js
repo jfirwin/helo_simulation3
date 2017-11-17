@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar.js';
 import './Search.css';
-import HeaderTwo from '../Headers/HeaderTwo';
 import UserTile from '../UserTile/UserTile';
 
 class Dashboard extends Component {
